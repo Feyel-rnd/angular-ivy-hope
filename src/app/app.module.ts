@@ -8,7 +8,17 @@ import { HelloComponent } from './hello.component';
 import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
 import { AngularFireModule } from '@angular/fire/compat';
 //import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import {MongoClient} from 'mongodb';
+
+const url = "https://data.mongodb-api.com/app/data-icqqg/endpoint/data/v1"
+const client = new MongoClient(url)
+
+const dbName = 'myProject';
+
+
+
+
+import { getFirestore, provideFirestore, Firestore } from '@angular/fire/firestore';
 //import  environment  from './environnement';
 //AngularFireDatabaseModule.call(getFirestore)
 const firebaseConfig = {
@@ -26,15 +36,15 @@ const app = () => initializeApp(firebaseConfig);
 //const db = getFirestore(app);
 //const store = () => getFirestore()
 //const db = getFirestore(app)
-
+//const db = new Firestore(app)
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule,
     AngularMaterialModule,
-    //provideFirebaseApp(app),
-    //provideFirestore(() => getFirestore()),
+    provideFirebaseApp(app),
+    //provideFirestore(new Firestore(app)),
     //AngularFireModule.initializeApp(firebaseConfig),
     //AngularFireDatabaseModule,
   ],
@@ -43,4 +53,17 @@ const app = () => initializeApp(firebaseConfig);
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppModule {}
+export class AppModule {
+  async function main() {
+    // Use connect method to connect to the server
+    await client.connect();
+    console.log('Connected successfully to server');
+    const db = client.db(dbName);
+    const collection = db.collection('documents');
+  
+    // the following code examples can be pasted here...
+  
+    return 'done.';
+  }
+
+}
