@@ -22,7 +22,8 @@ const firebaseConfig = {
 };
 
 const app = () => initializeApp(firebaseConfig);
-const db = () => getFirestore(app);
+
+//const db = getFirestore(app);
 //const store = () => getFirestore()
 //const db = getFirestore(app)
 
@@ -32,7 +33,7 @@ const db = () => getFirestore(app);
     FormsModule,
     BrowserAnimationsModule,
     AngularMaterialModule,
-    provideFirebaseApp(app),
+    //provideFirebaseApp(app),
     //provideFirestore(() => getFirestore()),
     //AngularFireModule.initializeApp(firebaseConfig),
     //AngularFireDatabaseModule,
